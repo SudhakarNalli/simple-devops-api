@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-api-deployment
+  labels:
+    app: simple-api
+spec:
+  replicas: 2 # Runs 2 copies of your app for High Availability
+  selector:
+    matchLabels:
+      app: simple-api
+  template:
+    metadata:
+      labels:
+        app: simple-api
+    spec:
+      containers:
+      - name: api-container
+        image: simple-api:latest
+        imagePullPolicy: Never # Forces Kubernetes to use our local image
+        ports:
+        - containerPort: 3000
